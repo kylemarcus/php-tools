@@ -1,4 +1,4 @@
-/*    Copyright (c) 2011 Zuora, Inc.
+/*    Copyright (c) 2012 Zuora, Inc.
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy of 
  *   this software and associated documentation files (the "Software"), to use copy, 
@@ -61,8 +61,8 @@ loader/index.php - Loader utility front page
 loader/call.php - Loader command line code
 loader/settings.php - Loader common settings file
 
-INSTALLATION INSTRUCTIONS
--------------------------
+INSTALLATION INSTRUCTIONS (Windows)
+-----------------------------------
 
 The following instructions assume that you're going to use Xampp (http://www.apachefriends.org/en/xampp.html) on the localhost as the web server.
 
@@ -81,6 +81,38 @@ f) In the Xampp directory, extract the zip file (Zuora source) under a folder na
 g) Make sure Apache is running.
 
 h) In a web browser type http://localhost/api-util/. This should load up the API Utility for Zuora. http://localhost/api-util/loader/ should load the API Loader.
+
+INSTALLATION INSTRUCTIONS (Mac OS X)
+-----------------------------------
+By Richard Sawey, March 2012
+
+Validate you have the necessary PHP level and modules by opening a Terminal window. Type 'php -v' to get the version, type 'php -m' to see the built in modules. My Mac, running Mac OS X 10.6.8 has all the modules installed and a more recent version of PHP, v5.3.8, than that needed by Zuora.
+
+Mac OS X has the Apache web server built in, you do not need Xamp. You need to turn Apache on by opening Applications > System Preferences (look for it in your Dock) and go to the Sharing panel. Under the Services table, check Web Sharing. The Apache web server should now be running and will automatically start every time your computer boots unless you change the settings in the System Preferences. Because Apache runs as a background service or daemon and not a normal application, it won't appear as an item in the Dock when it's running.
+
+You can now test your web server is running by typing 'http://localhost' into your web browser. You'll see a blank page apart from the message 'It works!'.
+open a Finder window and go to /Library/WebServer/Documents/ (this is /Library starting from your hard drive's root directory, NOT /Library in your personal home directory). You should see a group of HTML and image files including one called index.html.en These files are used in the default Apache page you just viewed.
+
+In this /Library/WebServer/Documents directory create an 'api-util' directory and copy the downloaded files into this directory. 
+
+By default, the PHP Apache module is not activated. After enabling write access, uncomment the line ”LoadModule php5_module libexec/apache2/libphp5.so” in file “/private/etc/apache2/httpd.conf” to enable PHP on Mac OS X Apache web server. By default, access to the httpd.conf is read only. You need to change the file permissions  so you can write to it. I did this with 'sudo chmod 666 httpd.conf' which prompts you for your Mac login password before changing the file permissions. With the file permission changed use a text editor and uncomment the above mentioned line. Save, then stop and restart Apache using the Sharing panel.
+
+Assuming you now have this file tree:
+/Library/WebServer/Documents/api-util
+with lots of files like:
+/Library/WebServer/Documents/api-util/index.php
+/Library/WebServer/Documents/api-util/generate.xml
+as well as a sub folder:
+/Library/WebServer/Documents/api-util/Loader
+ 
+Then this URL should bring up the familiar API utility:
+http://localhost/api-util/
+
+Once you've tested this and got the utilities working consider going back and disabling the write permissions on httpd.conf:
+sudo chmod 644 httpd.conf
+And if you don't think you'll be using Apache for a while, disable in the Sharing panel, it's a potential vulnerability. On the internet (or in your favorite coffee shop) your box's port 80 (where Apache is listening) will be constantly probed.
+
+Finally, the Xamp/Windows instructions include a bunch of proxy setup instructions which I don't need and so haven't attempted here on Mac OS X.
 
 POTENTIAL INSTALLATION ISSUES
 -----------------------------
